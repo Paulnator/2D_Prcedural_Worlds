@@ -31,6 +31,8 @@ public class TerrainGenerator : MonoBehaviour
     [SerializeField] bool RandomGeneration = true;
     [SerializeField] string customSeed;
 
+    [SerializeField] GameObject Player;
+
     private int seed;
 
     private void Start()
@@ -64,6 +66,11 @@ public class TerrainGenerator : MonoBehaviour
 
                 Sprite sprite = ChooseSprite(heightValue);
                 PlaceSprite(sprite, x, y);
+
+                if(y == height/2 && x == width/2)
+                {
+                    Instantiate(Player, new Vector2(x, y), Quaternion.identity);
+                }
             }
         }
     }
