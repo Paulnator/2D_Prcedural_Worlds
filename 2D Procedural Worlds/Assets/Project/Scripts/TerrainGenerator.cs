@@ -30,10 +30,10 @@ public class TerrainGenerator : MonoBehaviour
     [Header("Seed Settings")]
     [SerializeField] bool RandomGeneration = true;
     [SerializeField] string customSeed;
+    private int seed;
 
     [SerializeField] GameObject Player;
 
-    private int seed;
 
     private void Start()
     {
@@ -45,9 +45,8 @@ public class TerrainGenerator : MonoBehaviour
         {
             seed = int.Parse(customSeed);
         }
-
-
         Debug.Log("Current seed = " + seed);
+
         GenerateTerrain(); 
     }
 
@@ -65,7 +64,7 @@ public class TerrainGenerator : MonoBehaviour
                 float heightValue = Mathf.PerlinNoise(xCoord, yCoord);
 
                 Sprite sprite = ChooseSprite(heightValue);
-                PlaceSprite(sprite, x, y);
+                PlaceEnviroObject(sprite, x, y);
 
                 if(y == height/2 && x == width/2)
                 {
@@ -100,7 +99,7 @@ public class TerrainGenerator : MonoBehaviour
         }
     }
 
-    private void PlaceSprite(Sprite terrainSprite, int x, int y)
+    private void PlaceEnviroObject(Sprite terrainSprite, int x, int y)
     {       
         GameObject terrainObject = new GameObject("TerrainSprite");
         SpriteRenderer terrainRenderer = terrainObject.AddComponent<SpriteRenderer>();
@@ -145,7 +144,7 @@ public class TerrainGenerator : MonoBehaviour
             {
                 Sprite randomBush = sandBushesObjects[Random.Range(0, sandBushesObjects.Count)];
 
-                GameObject sandBush = new GameObject("BushSprite");
+                GameObject sandBush = new GameObject("BushSandSprite");
                 SpriteRenderer bushRenderer = sandBush.AddComponent<SpriteRenderer>();
                 bushRenderer.sprite = randomBush;
                 sandBush.transform.position = new Vector3(x, y, 0);
